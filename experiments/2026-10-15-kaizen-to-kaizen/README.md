@@ -29,7 +29,7 @@ the one before has a verdict**, and each gets its own sheet
 ```
 cat baseline.hash stage1.hash      # A pins the first, B the second
 for a in A B; do for t in T1 T2 T3; do ./run.sh $a $t; done; done
-for r in runs/*; do ./measure.sh $r; done
+for r in ~/kaizen-runs/2026-10-15-kaizen-to-kaizen/*; do ./measure.sh $r; done
 ./blind.sh                          # then Henri reads blind/ only
 ```
 
@@ -71,3 +71,9 @@ date — and that is finding 4 standing unfixed.
   not failed.  A third: the arms could ask but nobody could answer —
   `run.sh` gives them a way to raise a question and none to get a reply.
   Transcripts kept in `attempts/2026-10-15-sensitive-path/`.
+- **Third launch, changes made before it ran:** runs go to
+  `~/kaizen-runs/2026-10-15-kaizen-to-kaizen/`; the fixture gains
+  `method/reviews.log` (20 reviews, generated with a fixed seed) and
+  `ANSWERS.md` (what each rule is meant to improve — written by this
+  session at Henri's word, identical for both arms).  `sheet.md` is
+  unchanged.
