@@ -1,0 +1,11 @@
+I didn't add the rule, and I couldn't write `QUESTIONS.md` either: both attempts to create it were blocked by a permission prompt for a sensitive file. So the question is here instead. Nothing in the repository has changed.
+
+**Why I stopped:** the kaizen skill treats a new rule as a large change ("adding new information"). A large change needs an experiment in `spec/experiments/2026-10-15-review-response-time/`, and the first step is measuring the current state. That isn't possible here. The repository has no remote and only one commit (`416893a fixture`), so there are no records of when past reviews were requested or answered.
+
+**My question:** Where is review timing recorded, such as a code hosting site, issue tracker or chat? If it isn't recorded anywhere, what measurement would you accept? One option is to note that there's no baseline, start counting from now, and set a date to measure again.
+
+Two smaller points decide what the measurement counts:
+- **What counts as "answered":** the first review comment, an approve or reject decision, or any acknowledgement?
+- **Which 24 hours:** clock hours, or working hours only (so weekends and holidays don't count)?
+
+Once you answer, I'll write the experiment (measurement, baseline, expected change) and add the rule as item 4 in `method/review.md`. Then I'll commit it and record the commit hash in the experiment. If you'd like the question saved to `QUESTIONS.md` as you asked, you'll need to allow writing that file.

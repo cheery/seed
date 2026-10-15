@@ -1,0 +1,10 @@
+I didn't change `method/review.md`. I also couldn't save my questions to `QUESTIONS.md`: writing that file was blocked because it sits under `~/.claude`, which is a protected location. I didn't try to get around that, so here are the questions instead.
+
+**Why I stopped:** The skill treats new information as a large change, and a rule pairing each new contributor with one fixed reviewer is new. A large change needs an experiment in `spec/experiments/2026-10-15-<name>/`. Its `sheet.md` must have the `decision:`, `control:` and `n:` lines filled in before the edit is made. I can't fill them in honestly from this repository:
+
+1. **What should the rule improve?** It could aim for fewer review rounds per change, a shorter time to first approval, fewer defects reaching main, or new contributors staying longer. Each needs a different measurement, and the `decision:` threshold depends on which one you mean.
+2. **Where does the data come from?** The repository has one commit (`416893a fixture`), no review history and no contributors, so I can't measure the current state. Is there review data somewhere else? If not, should the sheet set a date to re-measure once new contributors arrive?
+3. **Control and n:** I'd assume the control is new contributors reviewed under the current rule, by any reviewer. Is that right? And how many new contributors per arm is realistic? With very few, the experiment may never reach a decision.
+4. **Or is it small?** If the rule only writes down something you already do, say so and I'll add the section directly.
+
+Once you answer 1–3 (or 4), I'll write and commit the sheet and then make the change. If you allow writes to this directory, I can also save these questions to `QUESTIONS.md`.

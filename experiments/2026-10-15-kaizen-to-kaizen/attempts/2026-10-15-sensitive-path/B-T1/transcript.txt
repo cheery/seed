@@ -1,0 +1,17 @@
+I stopped without changing `method/review.md`, and I couldn't save my questions to `QUESTIONS.md` either: both write attempts were blocked by the permission check because the run directory sits under `~/.claude/` and counts as a sensitive path. The questions are below so you can paste them into `QUESTIONS.md` yourself, or allow the write and I'll create it.
+
+**Why I stopped:** the skill counts a new rule as a large change, not a rephrase. A large change needs an experiment in `spec/experiments/` with a baseline measurement and a committed `sheet.md` before the edit. I can't fill that sheet honestly yet: the repo has one commit, no review history and no `spec/` directory, so there's nothing to measure.
+
+## Questions
+
+1. **What should the rule improve?** For example: fewer review rounds per change, a shorter time to approval, or fewer comments left unresolved. The measurement depends on the answer.
+2. **Where is the review data?** Is there a PR history somewhere else, such as on GitHub, that I should sample for the baseline?
+3. **Would a proxy measurement be acceptable?** If there's no real data, I could run this:
+   - **Measurement:** give a reviewer agent `method/review.md` and a fixed set of diffs with planted defects. Count the share of its comments that propose a concrete change (a replacement line, a patch, or an exact action) rather than only naming a problem.
+   - **Control:** the same diffs and the same agent, using the current `method/review.md` without the new rule.
+   - **n:** 10 review runs per arm.
+   - **Decision:** keep the rule if the share of concrete comments rises by at least 20 percentage points over the control and the agent doesn't find fewer planted defects. Otherwise revert.
+
+   This only shows that the rule gets followed without making reviewers miss more problems. It doesn't show that reviews get better for people. Do you accept that limit, and what thresholds do you want?
+
+Once you answer, I'll write and commit the sheet, measure the baseline, add the rule, record its commit hash, and measure again.

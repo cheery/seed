@@ -58,3 +58,16 @@ date — and that is finding 4 standing unfixed.
   three fixed before the second launch; the dead runs are kept in
   `attempts/2026-10-15-invalid-key/` (their fixture repos' `.git`
   removed).
+- **2026-10-15, second launch: no result.**  All six ran (exit 0) and
+  all six stopped without writing anything: every path under
+  `~/.claude/` is *sensitive* to the permission layer, so the
+  experiment directory, the sheet and even `QUESTIONS.md` were refused.
+  Each arm put its questions in its final message instead — so the ask
+  channel worked, but by a route the judge does not read.  And every arm
+  said the same second thing: **the fixture has nothing to measure** (one
+  commit, no review history), so no honest baseline or sheet was
+  possible.  Both are defects of this harness, shared by the arms, and
+  per `sheet.md` stops count for neither arm: stage 1 is **undecided**,
+  not failed.  A third: the arms could ask but nobody could answer —
+  `run.sh` gives them a way to raise a question and none to get a reply.
+  Transcripts kept in `attempts/2026-10-15-sensitive-path/`.

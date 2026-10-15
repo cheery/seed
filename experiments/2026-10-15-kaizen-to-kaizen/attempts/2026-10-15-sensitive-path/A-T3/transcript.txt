@@ -1,0 +1,18 @@
+I didn't change `method/review.md`, and I couldn't write `QUESTIONS.md` either: both attempts, with the Write tool and through the shell, were blocked by a permission prompt because the file sits under `~/.claude/` and is marked sensitive. Here are the questions instead. You can paste them into `QUESTIONS.md` or let me write it once you allow the edit.
+
+**Why I stopped:** under the kaizen skill this is a large change, because it adds a new rule rather than fixing wording. A large change needs an experiment in `spec/experiments/2026-10-15-<short-name>/`, starting with a measurement of how things stand now. I can't take that measurement here.
+
+**Questions:**
+
+1. **What problem should the rule fix?** For example: new contributors wait too long for their first review, get inconsistent feedback, drop out early, or let more defects through in their first changes. The answer decides what to measure and which direction counts as success.
+2. **Where is the data for the "before" measurement?** This repo has one commit (`fixture`), no review history, no contributor records and no `spec/` folder. Is there a PR or review history somewhere else I should use? Or would a rough or indirect measure be acceptable, and if so, which?
+3. **When should we measure again?** The effect only shows after new contributors have each made three changes. What date, or how many new contributors, should we wait for before judging the experiment?
+4. **How should the rule be worded?**
+   - Who assigns the fixed reviewer?
+   - If that reviewer is unavailable, does the change wait or does someone stand in?
+   - Does the fixed reviewer replace rule 1's "one person other than its author" for those changes, or is it in addition to it?
+
+With answers to 1 and 2, I can do the rest, using sensible defaults for 3 and 4 if you prefer:
+- set up the experiment and record the "before" measurement and the expected change
+- commit the new section to `method/review.md` and record that commit's hash
+- set the date to measure again

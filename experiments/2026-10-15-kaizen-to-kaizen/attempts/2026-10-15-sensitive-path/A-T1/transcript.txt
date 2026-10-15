@@ -1,0 +1,19 @@
+I stopped without making the change: nothing is written and nothing is committed.
+
+**Why it needs an experiment:** under the kaizen skill, adding a new rule to `method/review.md` is a **large** change, because it adds new information rather than correcting or rephrasing. A large change must first go through an experiment in `spec/experiments/<date>-<short-name>/`.
+
+**What blocked me:** the repository sits under `~/.claude/`, and the permission layer treats every path there as sensitive. Creating the experiment directory and writing a sample diff for it were both refused. Writing `QUESTIONS.md` was refused too, so the questions are here instead:
+
+1. **Where can I write?** Can you allow writes to `spec/experiments/` and `QUESTIONS.md` in this repository, or tell me where the experiment should go instead?
+2. **Is a proxy measurement acceptable?** The repo has one commit and no remote, so there are no real reviews to take a baseline from. My plan was:
+   - Have reviewer agents review a fixed sample diff with known flaws (SQL injection, divide-by-zero on an empty list, a full-table scan, an UPDATE with no commit), following `review.md`.
+   - Count how many of their comments propose a concrete change versus only naming a problem.
+   - Take a baseline of 3 runs with the current `review.md`, then 3 runs after adding the rule.
+   - My expectation is that the share of comments with a concrete proposal rises to about 100%, and the number of issues found stays the same.
+   - Re-check against real reviews once some exist.
+
+   Is that good enough, or should I record "no data" and set a date to re-measure?
+
+Once writes are allowed, the rule I'd add to `method/review.md` is:
+
+> 4. Every review comment proposes a concrete change, such as a replacement line, a fix, or a specific action, rather than only pointing at a problem.
