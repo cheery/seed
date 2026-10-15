@@ -24,6 +24,19 @@ table order unless a result reorders them.  **A stage opens only when
 the one before has a verdict**, and each gets its own sheet
 (`sheet-<n>.md`) written before its modification.
 
+## Henri's decision, 2026-10-15
+
+After the third launch, asked whether the friction was justified, Henri
+adopted the proportionality proposal: *"I believe we need to make this
+as a little ceremony as possible, but still enough to make things run
+well."*  The skill now has three tiers (small / on trial / full trial).
+That change **absorbs stages 3, 4 and 6**: the on-trial mark (3), a
+named re-check found by `grep` (4), and the tier line (6).  It ships
+*on trial*, under its own rule: it is followed by every session that
+uses the skill, but a wrong tier shows at the next use, so a mark
+catches it.  The sheet rule of stage 1 now applies to full trials only.
+Stage 1 still waits on Henri's blind read; stages 2 and 5 remain.
+
 ## Stage 1 — how to run it
 
 ```
