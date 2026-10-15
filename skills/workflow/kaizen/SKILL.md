@@ -46,6 +46,13 @@ directory, `<date>-<short-name>/`.
  1. Build or select the measurements relevant to the change, and
     measure the current state.
  2. Record how you expect things to change after the modification.
+
+    *On trial: what an expectation holds, from 2026-10-15.  Re-check at
+    the next full trial.*  Write it as reasoning, not as a form: the
+    sheets that could decide (`experiments/2026-10-15-kaizen-to-kaizen/`)
+    compared against something that separates the change from other
+    causes, checked that the change is followed at all before crediting
+    it, and said how noisy the data is.
  3. Make the modification, mark it on trial pointing at the experiment,
     commit it, and record the commit hash in the experiment.
  4. Re-measure, or mark the date to re-measure.
@@ -54,9 +61,23 @@ If things change in the direction you expected, the experiment succeeded:
 remove the mark, and the modification becomes the mainline.  Otherwise
 revert it and record the experiment as failed.
 
+*On trial: measuring a skill, from 2026-10-15.  Re-check at the next full
+trial of a skill.*  A skill is measured by giving fresh sessions the same
+task with the skill as it was and as changed; the session that wrote the
+change does not judge it.  `run.sh` in the experiment above is a worked
+example.  It needed data in the fixture to measure, a fixed answers file
+so a question was not left unanswered, and run directories outside
+`~/.claude/`, where writes are refused.
+
 ## General improvement kata
 
 This is to be used if author or user requests kaizen:
+
+*On trial: the person answers first, from 2026-10-15.  Re-check at the
+next three kaizens.*  The questions below go to the person first.  Give
+each a concrete hook from the work so it is not a blank page, then stop
+and wait.  Offer your own answers only after theirs, as the second half.
+A kaizen answered by the session alone is the session grading itself.
 
 ### Long-term vision
 

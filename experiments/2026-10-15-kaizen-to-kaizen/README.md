@@ -5,7 +5,7 @@ changes found in its first review (2026-10-15), bundled into one
 experiment and **tried one stage at a time**, so a result can be
 attributed to one change and not to the bundle.
 
-Status: **stage 1 failed and reverted; three-tier rule on trial; stages 2 and 5 open.**
+Status: **closed 2026-10-15.**  Stage 1 failed and reverted; every other finding shipped *on trial* in the skill, each with its own re-check — `grep -n "On trial:" skills/workflow/kaizen/SKILL.md`.
 
 ## The stages
 
@@ -123,3 +123,10 @@ open again, now with evidence that a labelled form is not the fix.
   git history in `history.txt`); blind set in `blind/`.
   **The blind is imperfect:** the `decision:` label itself shows which
   three are B.  `blind.key` is kept out of git until the verdicts are in.
+
+**Stages 2 and 5, and finding 1 again — shipped on trial, 2026-10-15.**
+Under the three-tier rule none needed arms: a skipped person shows at the
+next kaizen, and the other two matter only at the next full trial.  The
+person answers first (5); what an expectation holds, as prose after the
+form failed (1); measuring a skill by fresh sessions, with this
+experiment's `run.sh` as the example (2).
