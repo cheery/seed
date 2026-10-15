@@ -34,13 +34,23 @@ In the experiment:
  - Build or select the measurements that are relevant for the change
  - Measure those measurements against the current state
  - Record how you expect things to change after the modification
+ - Write the experiment's sheet, `sheet.md`, with three lines, none blank:
+   - `decision:` what you will do for each outcome — keep or revert, and
+     the threshold between them
+   - `control:` what isolates the change — the same measurement with
+     the change absent
+   - `n:` samples per arm, a number
+
+   Commit the sheet.  A sheet with a blank line has said it cannot
+   decide; do not make the modification until it can.
  - Write the modification and commit it
  - Record the modification's commit hash into the experiment directory
  - Re-measure (or mark the date to re-measure)
 
-If things change into the direction as you expected, the experiment was successful
-and the written modification becomes the mainline.
-Otherwise the changes to the skill/method are reverted and the experiment is recorded as failed.
+The `decision:` line gives the verdict.  If it says keep, the experiment
+was successful and the modification becomes the mainline.  Otherwise the
+changes to the skill or method are reverted and the experiment is
+recorded as failed.  The sheet is not rewritten after the measurement.
 
 ## General improvement kata
 
