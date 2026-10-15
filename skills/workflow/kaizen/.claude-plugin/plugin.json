@@ -1,0 +1,13 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "kaizen",
+  "version": "0.1.0",
+  "description": "TODO: describe what this plugin provides",
+  "author": {
+    "name": "Henri Tuhola",
+    "email": "henri.tuhola@gmail.com"
+  },
+  "skills": [
+    "./"
+  ]
+}
