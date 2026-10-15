@@ -5,7 +5,7 @@ changes found in its first review (2026-10-15), bundled into one
 experiment and **tried one stage at a time**, so a result can be
 attributed to one change and not to the bundle.
 
-Status: **stage 1 written, arms not yet run.**
+Status: **stage 1 failed and reverted; three-tier rule on trial; stages 2 and 5 open.**
 
 ## The stages
 
@@ -60,7 +60,29 @@ date — and that is finding 4 standing unfixed.
 
 ## Verdicts
 
-*(none yet)*
+**Stage 1 — failed, reverted, 2026-10-15.**  Henri's blind read of
+`blind/a.md`…`f.md`: *"a.md and b.md seem much better than the others."*
+The key (`blind.key`): **a = A-T3, b = A-T1** — both from the baseline
+skill.  He gave a comparison rather than a yes/no per sheet, but the
+outcome does not depend on how it is mapped: under no reading are more
+of B's sheets able to decide than A's, so by `sheet.md`'s `decision:`
+line the sheet rule is reverted.  Measurement 1 (A 0/3, B 3/3) counted
+the label, as predicted and as its known weakness said it would.
+
+What a and b have that c–f do not, read after the key was opened (not
+measured): a comparison group or a within-group split to separate the
+change from the contributor mix (both), a check that the rule is
+followed at all before crediting it (b's M2), and the noise named
+(a).  The B sheets filled their three lines and stopped there.  One
+reading — not tested — is that **a template of fields becomes the
+ceiling of the thinking**: the arm without one reasoned about
+confounds, the arms with one answered the fields.
+
+The revert is not `git revert fff87f8` — the section was rewritten since
+(`dc7d1dc`, the three tiers) — but the same text by hand: the sheet step
+removed from §"Full trial", the expectation step and the
+direction-as-expected verdict restored.  Finding 1 (no decision rule) is
+open again, now with evidence that a labelled form is not the fix.
 
 ## Attempts
 

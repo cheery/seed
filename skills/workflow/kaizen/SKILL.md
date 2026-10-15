@@ -43,20 +43,16 @@ Otherwise (a change to a skill in the seed plugin) store it in
 `~/.claude/skills/seed/experiments/`.  Each experiment gets its own
 directory, `<date>-<short-name>/`.
 
- 1. Measure the current state.
- 2. Write `sheet.md` with three lines, none blank, and commit it:
-    - `decision:` keep or revert for each outcome, and the threshold
-      between them
-    - `control:` the same measurement with the change absent
-    - `n:` samples per arm, a number
-
-    A blank line means the sheet cannot decide yet.  Do not modify until
-    it can.
+ 1. Build or select the measurements relevant to the change, and
+    measure the current state.
+ 2. Record how you expect things to change after the modification.
  3. Make the modification, mark it on trial pointing at the experiment,
     commit it, and record the commit hash in the experiment.
- 4. Re-measure.  The `decision:` line gives the verdict: keep (remove the
-    mark) or revert.  Record it in the experiment either way, and do not
-    rewrite the sheet after measuring.
+ 4. Re-measure, or mark the date to re-measure.
+
+If things change in the direction you expected, the experiment succeeded:
+remove the mark, and the modification becomes the mainline.  Otherwise
+revert it and record the experiment as failed.
 
 ## General improvement kata
 
