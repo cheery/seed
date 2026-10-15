@@ -70,9 +70,30 @@ example.  It needed data in the fixture to measure, a fixed answers file
 so a question was not left unanswered, and run directories outside
 `~/.claude/`, where writes are refused.
 
+## Daily kaizen
+
+*On trial: the daily kaizen, from 2026-10-15.  Re-check at the next three
+evenings.*
+
+Close the day with four questions, bounded to about fifteen minutes.  The
+unbounded version is the one that gets skipped on the day it is most
+needed.
+
+    what did we learn · what did we get wrong · what mechanism does
+    that earn · what is tomorrow's first thing
+
+The third asks for a mechanism, or a stated reason there is none, and the
+next kaizen opens by reading it back.  Ask the person first, with a
+concrete hook from the day for each question, and offer your own answers
+second.  Write the result where the next session will read it, or it
+does not survive the session.
+
+The general improvement kata below is the longer cycle.  Run it only
+when it is asked for by name.
+
 ## General improvement kata
 
-This is to be used if author or user requests kaizen:
+This is to be used if author or user requests improvement kata:
 
 *On trial: the person answers first, from 2026-10-15.  Re-check at the
 next three kaizens.*  The questions below go to the person first.  Give
