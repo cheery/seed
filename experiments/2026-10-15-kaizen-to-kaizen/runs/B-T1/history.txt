@@ -1,0 +1,241 @@
+commit 65eae8213974ec3f955d64a6c71d0ff774c517d4
+Author: fixture <fixture@invalid>
+Date:   Thu Oct 15 04:19:08 2026 +0300
+
+    fixture
+
+diff --git a/ANSWERS.md b/ANSWERS.md
+new file mode 100644
+index 0000000..37b6b26
+--- /dev/null
++++ b/ANSWERS.md
+@@ -0,0 +1,15 @@
++# Answers from the person who asked for the change
++
++Written before any arm ran (by the session that built this experiment,
++at Henri's word "your call on the answers").  The person is not
++available beyond this file.
++
++- **Data.** `method/reviews.log` is the review history: every review so
++  far, with request and answer times, rounds, comments, and how many
++  comments proposed a change.  It is all there is.
++- **T1, comments propose a concrete change** — meant to cut the number
++  of review rounds per change.
++- **T2, answered within 24 hours** — meant to cut the wait from request
++  to first answer.
++- **T3, a fixed reviewer for a new contributor's first three changes** —
++  meant to cut the rounds a new contributor's changes take.
+diff --git a/method/review.md b/method/review.md
+new file mode 100644
+index 0000000..3b824ff
+--- /dev/null
++++ b/method/review.md
+@@ -0,0 +1,7 @@
++# Code review
++
++How changes are reviewed in this repository.
++
++1. Every change is reviewed by one person other than its author.
++2. The reviewer runs the tests before approving.
++3. A review comment names the line it is about.
+diff --git a/method/reviews.log b/method/reviews.log
+new file mode 100644
+index 0000000..df0deaf
+--- /dev/null
++++ b/method/reviews.log
+@@ -0,0 +1,21 @@
++# id	author	new_contributor	reviewer	requested	answered	rounds	comments	comments_proposing_a_change
++R01	dara	no	bo	2026-07-02 23:00	2026-07-03 19:00	1	1	0
++R02	aino	no	fumi	2026-07-03 21:00	2026-07-05 03:00	1	7	6
++R03	kai	yes	eli	2026-07-06 00:00	2026-07-07 22:00	2	7	6
++R04	dara	no	eli	2026-07-08 05:00	2026-07-11 03:00	1	1	0
++R05	mo	yes	bo	2026-07-08 18:00	2026-07-10 16:00	3	3	0
++R06	fumi	no	bo	2026-07-09 21:00	2026-07-11 03:00	2	4	1
++R07	aino	no	bo	2026-07-12 03:00	2026-07-15 01:00	4	7	0
++R08	mo	yes	dara	2026-07-13 16:00	2026-07-13 21:00	2	1	1
++R09	lumi	yes	aino	2026-07-14 09:00	2026-07-16 07:00	2	1	0
++R10	mo	yes	aino	2026-07-15 23:00	2026-07-17 05:00	4	7	3
++R11	lumi	yes	aino	2026-07-17 14:00	2026-07-18 20:00	2	2	2
++R12	eli	no	bo	2026-07-19 00:00	2026-07-19 05:00	1	6	6
++R13	chen	no	aino	2026-07-20 05:00	2026-07-20 07:00	1	1	1
++R14	mo	yes	chen	2026-07-21 06:00	2026-07-22 02:00	2	5	5
++R15	lumi	yes	dara	2026-07-23 14:00	2026-07-23 16:00	3	3	1
++R16	aino	no	fumi	2026-07-24 19:00	2026-07-25 00:00	1	2	1
++R17	lumi	yes	eli	2026-07-26 06:00	2026-07-26 15:00	4	7	3
++R18	chen	no	eli	2026-07-28 10:00	2026-07-31 08:00	1	1	1
++R19	bo	no	eli	2026-07-30 02:00	2026-07-31 08:00	1	1	0
++R20	bo	no	eli	2026-07-31 10:00	2026-08-03 08:00	2	3	0
+
+commit 162454528339e33f5dc03725fcb09e5d8568e5e9
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:20:33 2026 +0300
+
+    Experiment: review comments propose a concrete change (sheet, baseline)
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/README.md b/spec/experiments/2026-10-15-review-comments-propose-change/README.md
+new file mode 100644
+index 0000000..6bc0359
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/README.md
+@@ -0,0 +1,72 @@
++# Experiment: review comments propose a concrete change
++
++**Change.** Add to `method/review.md`: every review comment must propose
++a concrete change, not only point at a problem.
++
++**Classified large:** it adds a new rule, i.e. new information.
++
++**Aim** (ANSWERS.md, T1): cut the number of review rounds per change.
++
++## Measurements
++
++From `method/reviews.log` (the whole review history):
++
++ - **Rounds per review**, the target measurement.  Reported raw and
++   *mix-adjusted*: new-contributor and established means, weighted
++   9:11 as in the baseline, because new contributors' changes take
++   more rounds and their share varies from batch to batch.
++ - **Compliance**: comments proposing a change / all comments.  If the
++   rule isn't followed, rounds tell us nothing about the rule.
++
++`measure.py reviews.log [first_id [last_id]]` computes both.  It was
++not run in the session that wrote it (no script execution was
++permitted), so the baseline below was counted by hand, twice.  The
++re-measurement should run the script on R01–R20 first and check it
++matches.
++
++## Baseline, R01–R20 (before the change)
++
++| | reviews | mean rounds |
++|---|---|---|
++| all | 20 | 2.00 |
++| new contributor | 9 | 2.67 |
++| established | 11 | 1.45 |
++| **mix-adjusted** | | **2.00** |
++
++Compliance: 37/70 comments = 53%.
++
++Split by whether every comment in the review proposed a change:
++
++| | all propose | not all propose |
++|---|---|---|
++| new contributor | 2.00 (n=3: R08 R11 R14) | 3.00 (n=6) |
++| established | 1.00 (n=3: R12 R13 R18) | 1.62 (n=8) |
++
++## Expectation
++
++The split points the same way in both groups: reviews where every
++comment proposed a change took about one round fewer for new
++contributors and 0.6 fewer for established ones.  If the rule is
++followed fully, the mix-adjusted mean should fall from 2.00 to about
++(9·2.00 + 11·1.00)/20 = **1.45**.
++
++This is observational, n=3 per cell, and probably confounded (reviews
++where it's easy to propose a fix may simply be easier changes), so
++expect less than that.  The keep threshold is set at 1.70, about
++halfway.  With rounds' spread around 1, the standard error over 20
++reviews is about 0.2, so a drop of 0.3 is only borderline detectable;
++the sheet accepts that risk rather than waiting for 40 reviews.
++
++## Control
++
++Before/after: the 20 reviews before the change (R01–R20) against the 20
++reviews after it.  Nothing else in `method/review.md` changes during the
++experiment.  A randomized control (the rule for alternate reviews) would
++isolate better but would make the method document itself conditional;
++not chosen.
++
++## Re-measure
++
++When R40 is in the log; at the baseline rate (20 reviews in a month),
++around **2026-11-15**.  Run `measure.py method/reviews.log R21 R40` and
++apply `sheet.md` as written.  Record the result in `result.md`.
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/measure.py b/spec/experiments/2026-10-15-review-comments-propose-change/measure.py
+new file mode 100644
+index 0000000..23e4eb6
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/measure.py
+@@ -0,0 +1,34 @@
++#!/usr/bin/env python3
++"""Rounds per review, split by new contributor and by whether every
++comment proposed a change.  Usage: measure.py reviews.log [first_id [last_id]]"""
++import sys
++
++def rows(path, first=None, last=None):
++    for line in open(path):
++        if line.startswith('#') or not line.strip():
++            continue
++        f = line.rstrip('\n').split('\t')
++        if first and f[0] < first: continue
++        if last and f[0] > last: continue
++        yield dict(id=f[0], new=f[2] == 'yes', rounds=int(f[6]),
++                   comments=int(f[7]), proposing=int(f[8]))
++
++def mean(xs):
++    return sum(xs) / len(xs) if xs else float('nan')
++
++rs = list(rows(*sys.argv[1:4]))
++new = [r['rounds'] for r in rs if r['new']]
++est = [r['rounds'] for r in rs if not r['new']]
++print(f"reviews              {len(rs)}")
++print(f"mean rounds          {mean([r['rounds'] for r in rs]):.2f}")
++print(f"  new contributor    {mean(new):.2f}  (n={len(new)})")
++print(f"  established        {mean(est):.2f}  (n={len(est)})")
++# weighted to the baseline mix R01-R20: 9 new, 11 established
++print(f"mix-adjusted rounds  {(9*mean(new) + 11*mean(est)) / 20:.2f}")
++c = sum(r['comments'] for r in rs); p = sum(r['proposing'] for r in rs)
++print(f"comments proposing   {p}/{c} = {p/c:.0%}")
++for label, test in (("all comments propose", lambda r: r['proposing'] == r['comments']),
++                    ("not all propose", lambda r: r['proposing'] < r['comments'])):
++    for who, isnew in (("new", True), ("established", False)):
++        xs = [r['rounds'] for r in rs if test(r) and r['new'] == isnew]
++        print(f"  {label:21s} {who:12s} {mean(xs):.2f}  (n={len(xs)})")
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/sheet.md b/spec/experiments/2026-10-15-review-comments-propose-change/sheet.md
+new file mode 100644
+index 0000000..02dc574
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/sheet.md
+@@ -0,0 +1,3 @@
++decision: over the 20 reviews after the change (R21–R40), keep the rule if comments proposing a change are at least 80% of all comments and the mix-adjusted mean rounds per review is 1.70 or lower; otherwise (compliance under 80%, or mix-adjusted rounds above 1.70) revert it and record the experiment as failed.
++control: the same measurement, mix-adjusted mean rounds per review, on the 20 reviews before the change (R01–R20): 2.00, with compliance 53%.
++n: 20
+
+commit adc3eb3106f5c559e70c6286b268e77e0b2e2669
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:20:38 2026 +0300
+
+    review: every comment proposes a concrete change
+    
+    Under experiment spec/experiments/2026-10-15-review-comments-propose-change.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/method/review.md b/method/review.md
+index 3b824ff..287d504 100644
+--- a/method/review.md
++++ b/method/review.md
+@@ -5,3 +5,5 @@ How changes are reviewed in this repository.
+ 1. Every change is reviewed by one person other than its author.
+ 2. The reviewer runs the tests before approving.
+ 3. A review comment names the line it is about.
++4. Every review comment proposes a concrete change, not only points at
++   a problem.
+
+commit 529bbcf768150584c6acaf55b20786b627d33869
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:20:43 2026 +0300
+
+    Experiment: record modification commit and re-measure date
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/modification.md b/spec/experiments/2026-10-15-review-comments-propose-change/modification.md
+new file mode 100644
+index 0000000..dcc100b
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/modification.md
+@@ -0,0 +1,2 @@
++modification: adc3eb3106f5c559e70c6286b268e77e0b2e2669
++re-measure: when R40 is in method/reviews.log, around 2026-11-15

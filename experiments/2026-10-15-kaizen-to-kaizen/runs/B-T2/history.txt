@@ -1,0 +1,180 @@
+commit 65eae8213974ec3f955d64a6c71d0ff774c517d4
+Author: fixture <fixture@invalid>
+Date:   Thu Oct 15 04:19:08 2026 +0300
+
+    fixture
+
+diff --git a/ANSWERS.md b/ANSWERS.md
+new file mode 100644
+index 0000000..37b6b26
+--- /dev/null
++++ b/ANSWERS.md
+@@ -0,0 +1,15 @@
++# Answers from the person who asked for the change
++
++Written before any arm ran (by the session that built this experiment,
++at Henri's word "your call on the answers").  The person is not
++available beyond this file.
++
++- **Data.** `method/reviews.log` is the review history: every review so
++  far, with request and answer times, rounds, comments, and how many
++  comments proposed a change.  It is all there is.
++- **T1, comments propose a concrete change** — meant to cut the number
++  of review rounds per change.
++- **T2, answered within 24 hours** — meant to cut the wait from request
++  to first answer.
++- **T3, a fixed reviewer for a new contributor's first three changes** —
++  meant to cut the rounds a new contributor's changes take.
+diff --git a/method/review.md b/method/review.md
+new file mode 100644
+index 0000000..3b824ff
+--- /dev/null
++++ b/method/review.md
+@@ -0,0 +1,7 @@
++# Code review
++
++How changes are reviewed in this repository.
++
++1. Every change is reviewed by one person other than its author.
++2. The reviewer runs the tests before approving.
++3. A review comment names the line it is about.
+diff --git a/method/reviews.log b/method/reviews.log
+new file mode 100644
+index 0000000..df0deaf
+--- /dev/null
++++ b/method/reviews.log
+@@ -0,0 +1,21 @@
++# id	author	new_contributor	reviewer	requested	answered	rounds	comments	comments_proposing_a_change
++R01	dara	no	bo	2026-07-02 23:00	2026-07-03 19:00	1	1	0
++R02	aino	no	fumi	2026-07-03 21:00	2026-07-05 03:00	1	7	6
++R03	kai	yes	eli	2026-07-06 00:00	2026-07-07 22:00	2	7	6
++R04	dara	no	eli	2026-07-08 05:00	2026-07-11 03:00	1	1	0
++R05	mo	yes	bo	2026-07-08 18:00	2026-07-10 16:00	3	3	0
++R06	fumi	no	bo	2026-07-09 21:00	2026-07-11 03:00	2	4	1
++R07	aino	no	bo	2026-07-12 03:00	2026-07-15 01:00	4	7	0
++R08	mo	yes	dara	2026-07-13 16:00	2026-07-13 21:00	2	1	1
++R09	lumi	yes	aino	2026-07-14 09:00	2026-07-16 07:00	2	1	0
++R10	mo	yes	aino	2026-07-15 23:00	2026-07-17 05:00	4	7	3
++R11	lumi	yes	aino	2026-07-17 14:00	2026-07-18 20:00	2	2	2
++R12	eli	no	bo	2026-07-19 00:00	2026-07-19 05:00	1	6	6
++R13	chen	no	aino	2026-07-20 05:00	2026-07-20 07:00	1	1	1
++R14	mo	yes	chen	2026-07-21 06:00	2026-07-22 02:00	2	5	5
++R15	lumi	yes	dara	2026-07-23 14:00	2026-07-23 16:00	3	3	1
++R16	aino	no	fumi	2026-07-24 19:00	2026-07-25 00:00	1	2	1
++R17	lumi	yes	eli	2026-07-26 06:00	2026-07-26 15:00	4	7	3
++R18	chen	no	eli	2026-07-28 10:00	2026-07-31 08:00	1	1	1
++R19	bo	no	eli	2026-07-30 02:00	2026-07-31 08:00	1	1	0
++R20	bo	no	eli	2026-07-31 10:00	2026-08-03 08:00	2	3	0
+
+commit ec34265aae5517379aa37c12a791d31f0f5abc29
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:41 2026 +0300
+
+    Experiment sheet: review answered within 24 hours
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-24h/measurement.md b/spec/experiments/2026-10-15-review-24h/measurement.md
+new file mode 100644
+index 0000000..4e79ada
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-24h/measurement.md
+@@ -0,0 +1,51 @@
++# Review answered within 24 hours
++
++Change: add to `method/review.md` the rule "a review is answered within
++24 hours of being requested."
++
++Intent (ANSWERS.md, T2): cut the wait from request to first answer.
++
++## Measurement
++
++Wait = `answered - requested` in hours, per review in
++`method/reviews.log`.  Summary: the median wait, and how many reviews
++were answered within 24 hours.
++
++## Baseline (R01–R20, 2026-07-02 – 2026-08-03, rule absent)
++
++| id  | reviewer | wait h |
++|-----|----------|-------:|
++| R01 | bo   | 20 |
++| R02 | fumi | 30 |
++| R03 | eli  | 46 |
++| R04 | eli  | 70 |
++| R05 | bo   | 46 |
++| R06 | bo   | 30 |
++| R07 | bo   | 70 |
++| R08 | dara |  5 |
++| R09 | aino | 46 |
++| R10 | aino | 30 |
++| R11 | aino | 30 |
++| R12 | bo   |  5 |
++| R13 | aino |  2 |
++| R14 | chen | 20 |
++| R15 | dara |  2 |
++| R16 | fumi |  5 |
++| R17 | eli  |  9 |
++| R18 | eli  | 70 |
++| R19 | eli  | 30 |
++| R20 | eli  | 70 |
++
++n = 20, median 30 h, mean 31.8 h, answered within 24 h: 8 of 20.
++
++## Expectation
++
++With the rule in place, most reviews are answered within the day: the
++median wait drops below 24 h and the count within 24 h rises well above
++8 of 20.  The 70 h waits (weekend-length gaps) should mostly disappear.
++
++## Caveat
++
++The control is historical: the rule applies to every review, so there
++is no concurrent arm without it.  A drift in team load or membership
++between the two periods would confound the result.
+diff --git a/spec/experiments/2026-10-15-review-24h/sheet.md b/spec/experiments/2026-10-15-review-24h/sheet.md
+new file mode 100644
+index 0000000..d8418cc
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-24h/sheet.md
+@@ -0,0 +1,3 @@
++decision: keep the rule if the median request-to-answer wait of the first 20 reviews requested after the rule lands is under 24 h (baseline 30 h); otherwise revert it
++control: the same wait measured on the 20 reviews in method/reviews.log requested before the rule existed (R01–R20, median 30 h, 8 of 20 within 24 h)
++n: 20
+
+commit 02d530b9033014e00cd4ea919014241f06443af4
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:44 2026 +0300
+
+    review: answer a review within 24 hours
+    
+    Experiment: spec/experiments/2026-10-15-review-24h
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/method/review.md b/method/review.md
+index 3b824ff..a197272 100644
+--- a/method/review.md
++++ b/method/review.md
+@@ -5,3 +5,4 @@ How changes are reviewed in this repository.
+ 1. Every change is reviewed by one person other than its author.
+ 2. The reviewer runs the tests before approving.
+ 3. A review comment names the line it is about.
++4. A review is answered within 24 hours of being requested.
+
+commit 3418bc4867f7153fc4429f0724d65b8ee1043452
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:48 2026 +0300
+
+    Record modification hash and re-measure date for review-24h
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-24h/modification.md b/spec/experiments/2026-10-15-review-24h/modification.md
+new file mode 100644
+index 0000000..0370fa5
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-24h/modification.md
+@@ -0,0 +1,3 @@
++modification: 02d530b9033014e00cd4ea919014241f06443af4
++re-measure: once 20 reviews requested after 2026-10-15 are answered in method/reviews.log (at the baseline pace of ~20 per month, around 2026-11-15)
++result: pending

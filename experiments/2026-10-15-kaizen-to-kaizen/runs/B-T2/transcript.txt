@@ -1,0 +1,13 @@
+I added the rule to `method/review.md` as rule 4: "A review is answered within 24 hours of being requested." Because it's a new rule, the skill counts it as a large change, so it went through an experiment. The rule is now live, but we won't know whether it should stay until 20 new reviews have come in, around 2026-11-15.
+
+**The experiment** is in `spec/experiments/2026-10-15-review-24h/`:
+- **Starting point:** I measured the wait from request to answer for all 20 reviews in `method/reviews.log`. The median wait is 30 h, and 8 of 20 reviews were answered within 24 h. The longest waits are 70 h, four of them; eli reviewed three of those.
+- **`sheet.md`** (committed before the rule, `ec34265`):
+  - `decision:` keep the rule if the median wait over the first 20 reviews after it lands is under 24 h; otherwise revert it.
+  - `control:` the 20 existing reviews, which were all made without the rule.
+  - `n: 20`
+- **The rule itself** is commit `02d530b`. That hash, the re-measure date and a "pending" result are recorded in `modification.md` (`3418bc4`).
+
+**Weak point:** the comparison is against past reviews, not a group running at the same time without the rule. The rule applies to everyone, so no such group can exist. If the team's workload or membership changes between the two periods, that would skew the result; I've noted this in `measurement.md`.
+
+I didn't need to ask anything, so there's no `QUESTIONS.md`.

@@ -1,0 +1,190 @@
+commit 65eae8213974ec3f955d64a6c71d0ff774c517d4
+Author: fixture <fixture@invalid>
+Date:   Thu Oct 15 04:19:08 2026 +0300
+
+    fixture
+
+diff --git a/ANSWERS.md b/ANSWERS.md
+new file mode 100644
+index 0000000..37b6b26
+--- /dev/null
++++ b/ANSWERS.md
+@@ -0,0 +1,15 @@
++# Answers from the person who asked for the change
++
++Written before any arm ran (by the session that built this experiment,
++at Henri's word "your call on the answers").  The person is not
++available beyond this file.
++
++- **Data.** `method/reviews.log` is the review history: every review so
++  far, with request and answer times, rounds, comments, and how many
++  comments proposed a change.  It is all there is.
++- **T1, comments propose a concrete change** — meant to cut the number
++  of review rounds per change.
++- **T2, answered within 24 hours** — meant to cut the wait from request
++  to first answer.
++- **T3, a fixed reviewer for a new contributor's first three changes** —
++  meant to cut the rounds a new contributor's changes take.
+diff --git a/method/review.md b/method/review.md
+new file mode 100644
+index 0000000..3b824ff
+--- /dev/null
++++ b/method/review.md
+@@ -0,0 +1,7 @@
++# Code review
++
++How changes are reviewed in this repository.
++
++1. Every change is reviewed by one person other than its author.
++2. The reviewer runs the tests before approving.
++3. A review comment names the line it is about.
+diff --git a/method/reviews.log b/method/reviews.log
+new file mode 100644
+index 0000000..df0deaf
+--- /dev/null
++++ b/method/reviews.log
+@@ -0,0 +1,21 @@
++# id	author	new_contributor	reviewer	requested	answered	rounds	comments	comments_proposing_a_change
++R01	dara	no	bo	2026-07-02 23:00	2026-07-03 19:00	1	1	0
++R02	aino	no	fumi	2026-07-03 21:00	2026-07-05 03:00	1	7	6
++R03	kai	yes	eli	2026-07-06 00:00	2026-07-07 22:00	2	7	6
++R04	dara	no	eli	2026-07-08 05:00	2026-07-11 03:00	1	1	0
++R05	mo	yes	bo	2026-07-08 18:00	2026-07-10 16:00	3	3	0
++R06	fumi	no	bo	2026-07-09 21:00	2026-07-11 03:00	2	4	1
++R07	aino	no	bo	2026-07-12 03:00	2026-07-15 01:00	4	7	0
++R08	mo	yes	dara	2026-07-13 16:00	2026-07-13 21:00	2	1	1
++R09	lumi	yes	aino	2026-07-14 09:00	2026-07-16 07:00	2	1	0
++R10	mo	yes	aino	2026-07-15 23:00	2026-07-17 05:00	4	7	3
++R11	lumi	yes	aino	2026-07-17 14:00	2026-07-18 20:00	2	2	2
++R12	eli	no	bo	2026-07-19 00:00	2026-07-19 05:00	1	6	6
++R13	chen	no	aino	2026-07-20 05:00	2026-07-20 07:00	1	1	1
++R14	mo	yes	chen	2026-07-21 06:00	2026-07-22 02:00	2	5	5
++R15	lumi	yes	dara	2026-07-23 14:00	2026-07-23 16:00	3	3	1
++R16	aino	no	fumi	2026-07-24 19:00	2026-07-25 00:00	1	2	1
++R17	lumi	yes	eli	2026-07-26 06:00	2026-07-26 15:00	4	7	3
++R18	chen	no	eli	2026-07-28 10:00	2026-07-31 08:00	1	1	1
++R19	bo	no	eli	2026-07-30 02:00	2026-07-31 08:00	1	1	0
++R20	bo	no	eli	2026-07-31 10:00	2026-08-03 08:00	2	3	0
+
+commit f6dc2590e67da339fe0a868db7b8986a65cf5d63
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:55 2026 +0300
+
+    Experiment: review comments propose a concrete change (baseline)
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/README.md b/spec/experiments/2026-10-15-review-comments-propose-change/README.md
+new file mode 100644
+index 0000000..b0e5d42
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/README.md
+@@ -0,0 +1,71 @@
++# Experiment: review comments propose a concrete change
++
++**Status: running** — modification committed, waiting for re-measurement.
++
++## Change
++
++Add to `method/review.md`: every review comment must propose a concrete
++change, not only point at a problem.
++
++Classified **large**: it adds a new rule (new information), not a
++correction or rephrase of an existing one.
++
++Purpose (from `ANSWERS.md`): cut the number of review rounds per change.
++
++## Measurements
++
++Source: `method/reviews.log`, the whole review history (R01–R20,
++2026-07-02 … 2026-08-03).
++
++ - **M1, mean rounds per review** — the target measure.
++ - **M2, share of comments that propose a change** —
++   `comments_proposing_a_change / comments`; checks that the rule is
++   followed at all.  If M2 does not rise, a change in M1 is not due to
++   the rule.
++ - **M3, mean rounds split by new contributor** — new contributors take
++   more rounds regardless, so M1 is compared within each group to keep a
++   shift in the contributor mix from looking like an effect.
++
++## Baseline (2026-10-15, R01–R20)
++
++| measure                                   | value            |
++|-------------------------------------------|------------------|
++| M1 mean rounds, all reviews (n=20)        | 2.00             |
++| M2 comments proposing a change            | 37 / 70 = 53 %   |
++| M3 mean rounds, new contributor (n=9)     | 2.67             |
++| M3 mean rounds, existing contributor (n=11) | 1.45           |
++
++Observational support for the rule in the same data:
++
++| reviews                         | new contributor   | existing contributor | all             |
++|---------------------------------|-------------------|----------------------|-----------------|
++| every comment proposes a change | 2.00 (n=3)        | 1.00 (n=3)           | 1.50 (n=6)      |
++| some comment does not           | 3.00 (n=6)        | 1.63 (n=8)           | 2.21 (n=14)     |
++
++The gap holds inside both groups.  Caveats: the samples are small, and
++reviews where every comment proposes a change also tend to have few
++comments, so this is a correlation, not proof — hence the experiment.
++
++## Expectation
++
++After the rule:
++
++ - M2 rises from 53 % to at least 90 %.
++ - M1 falls from 2.00 to 1.6 or below, and M3 falls in both groups
++   (new contributor below 2.67, existing below 1.45).
++
++Success: M2 ≥ 90 % and M1 ≤ 1.6 with both M3 groups lower than baseline.
++If M2 rises but M1 does not fall, the rule is followed but does not
++help: failed, revert.  If M2 does not rise, the rule is not taken up:
++failed, revert (or rethink how it is stated).
++
++## Modification
++
++Commit: see `commit.txt`.
++
++## Re-measure
++
++At the next 20 reviews logged in `method/reviews.log` after the
++modification commit (the log ran about 20 reviews a month), or on
++**2026-11-15**, whichever comes first.  Compute M1–M3 over the reviews
++requested after the commit only, and record the result and verdict here.
+
+commit 22d7cb7eb56d9b3a239c7fce36d3e23e3c60673c
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:55 2026 +0300
+
+    review.md: comments propose a concrete change
+    
+    Experiment: spec/experiments/2026-10-15-review-comments-propose-change/
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/method/review.md b/method/review.md
+index 3b824ff..97daffa 100644
+--- a/method/review.md
++++ b/method/review.md
+@@ -5,3 +5,5 @@ How changes are reviewed in this repository.
+ 1. Every change is reviewed by one person other than its author.
+ 2. The reviewer runs the tests before approving.
+ 3. A review comment names the line it is about.
++4. A review comment proposes a concrete change, not only the problem it
++   points at.
+
+commit afca73ff62178fd9d9af1679946d5a68edd51c49
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:59 2026 +0300
+
+    Experiment: record modification commit
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-review-comments-propose-change/commit.txt b/spec/experiments/2026-10-15-review-comments-propose-change/commit.txt
+new file mode 100644
+index 0000000..49deff0
+--- /dev/null
++++ b/spec/experiments/2026-10-15-review-comments-propose-change/commit.txt
+@@ -0,0 +1 @@
++22d7cb7eb56d9b3a239c7fce36d3e23e3c60673c

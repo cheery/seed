@@ -1,0 +1,22 @@
+I added the rule as `method/review.md` item 4. Because it adds a new rule, the skill counts it as a large change, so I set up an experiment first. The result can't be measured yet: it needs the next 20 reviews.
+
+**Experiment:** `spec/experiments/2026-10-15-review-comments-propose-change/`
+
+- **Measurement:** rounds per review, which ANSWERS.md says is what this rule is meant to cut. New contributors average more rounds (2.67 against 1.45), so I weight the two groups 9:11 as in the history ("mix-adjusted"). I also track compliance: the share of comments that propose a change.
+- **Baseline (R01–R20):** 2.00 rounds on average; 53% of comments (37/70) already propose a change.
+- **Expectation:** in past reviews where every comment proposed a change, rounds were lower for both new contributors (2.0 vs 3.0) and established ones (1.0 vs 1.6). Full compliance would predict about 1.45. But each of those groups has only 3 reviews, and easier changes may simply get better comments, so I expect less of a drop.
+- **Sheet:**
+  - **decision:** keep the rule if, over R21–R40, at least 80% of comments propose a change and mix-adjusted rounds are 1.70 or lower. Otherwise revert it.
+  - **control:** the same measurement on R01–R20.
+  - **n:** 20.
+
+**Commits:** `1624545` (sheet and baseline, committed before the change), `adc3eb3` (the rule), `529bbcf` (records the rule's commit hash and when to re-measure).
+
+**Caveats:**
+- **Weak comparison:** the control compares the 20 reviews before the rule with the 20 after it, which isolates the rule less well than alternating it between reviews would. I didn't alternate because that would make the method document itself conditional.
+- **Small sample:** with 20 reviews, a drop of 0.3 rounds is only borderline detectable.
+- **Script not run:** this session wasn't allowed to run scripts, so I counted the baseline by hand, twice. The measurement script `measure.py` is still unrun. At re-measure, run it on R01–R20 first to confirm it reproduces 2.00.
+
+**Next step:** re-measure once R40 is in the log, around 2026-11-15, with `measure.py method/reviews.log R21 R40`, then apply the sheet as written.
+
+Nothing stopped the work, so I didn't create QUESTIONS.md.

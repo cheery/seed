@@ -1,0 +1,21 @@
+I added the rule to `method/review.md` as rule 4: "A review comment proposes a concrete change, not only the problem it points at." Whether it works can't be known yet: the re-measurement needs reviews that happen after the change.
+
+**Why it went through an experiment.** It's a new rule, so under the skill it counts as a large change. The experiment is in `spec/experiments/2026-10-15-review-comments-propose-change/`.
+
+**What I measured.** I used the whole review history in `method/reviews.log` (20 reviews, July 2 – August 3):
+- **Rounds per review** (what the rule is meant to cut, per `ANSWERS.md`): 2.00 on average.
+- **Comments that propose a change** (whether people follow the rule at all): 37 of 70, or 53%.
+- **Rounds by contributor type**, since new contributors take more rounds anyway: 2.67 for new contributors, 1.45 for existing ones.
+
+The existing data leans in the rule's favour. Reviews where every comment proposed a change took 1.50 rounds on average, against 2.21 for the rest, and the gap holds for both new and existing contributors. But the samples are small (6 reviews against 14), and those reviews also tended to have fewer comments, so this is a hint, not proof. I worked these numbers out by hand because running the calculation script was blocked; they're worth checking again when you re-measure.
+
+**What counts as success.** At least 90% of comments propose a change, average rounds fall to 1.6 or below, and both contributor groups improve on their baseline. If people follow the rule but rounds don't fall, or they don't take up the rule, it gets reverted and the experiment is recorded as failed.
+
+**When to re-measure.** After the next 20 reviews or on 2026-11-15, whichever comes first, counting only reviews requested after the change. Nothing has been measured after the change yet.
+
+**Commits:**
+- `f6dc259` – experiment with the baseline
+- `22d7cb7` – the rule itself, with its hash saved in the experiment's `commit.txt`
+- `afca73f` – records that hash
+
+I left `.skill.md` and `transcript.txt` uncommitted, and didn't need to write anything to `QUESTIONS.md`.

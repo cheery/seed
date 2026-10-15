@@ -1,0 +1,19 @@
+I added the section to `method/review.md`, but it's on trial until it can be re-measured, around 2026-12-15. Under the skill this counts as a large change because it adds a new rule, so it went through an experiment in `spec/experiments/2026-10-15-fixed-reviewer-first-three/`.
+
+**Baseline.** I took this from `method/reviews.log`. The measure is the average number of review rounds per change, over each new contributor's first three changes. There are 7 such changes so far (kai, mo and lumi), averaging **2.57 rounds**; established contributors average 1.45. No new contributor has had a fixed reviewer yet. lumi comes closest: their first two changes both went to aino (2 rounds each), and the third went to dara (3 rounds). That's too little to prove anything.
+
+**Sheet.** It was committed before the change, as the skill requires:
+- **decision:** keep the section if the new average is 2.0 rounds or lower; otherwise revert it and record the experiment as failed.
+- **control:** the same measurement on those 7 changes from before the rule existed.
+- **n:** 7.
+
+**Commits:**
+- `1b8ce9f`: the experiment (README with the baseline table and what I expect to happen, the sheet, and a `measure.sh` script for the re-measure).
+- `b22c5a2`: the change itself, a short "New contributors" section in `method/review.md`.
+- `8b22e70`: records the change's commit hash and the re-measure date.
+
+**Two things to know:**
+- **Weak control.** It compares against the past rather than a group measured alongside, so drift over time isn't ruled out. I chose that because splitting new contributors into two groups would make the method contradict itself for half of them. The README says to check whether established contributors' rounds also move from 1.45 over the same period.
+- **Script not run.** I couldn't run `measure.sh` here because running it needed approval, so I counted the baseline by hand from the log. Run the script once before relying on it at re-measure time.
+
+No question came up, so I didn't create `QUESTIONS.md`.

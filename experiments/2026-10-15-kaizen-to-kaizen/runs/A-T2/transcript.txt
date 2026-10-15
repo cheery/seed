@@ -1,0 +1,13 @@
+I added the rule to `method/review.md` as item 4: "A review is answered within 24 hours of being requested." Whether it actually cuts the wait can't be checked yet, because no reviews have been logged since the change.
+
+Under the skill this is a large change (a new rule, not a rewording), so it went through an experiment in `spec/experiments/2026-10-15-review-24h/`.
+
+- **What it measures:** the hours from a review being requested to its first answer, which is what ANSWERS.md says the rule is for.
+- **Where things stand now** (all 20 reviews in `method/reviews.log`, R01–R20): the median wait is 30 h and the mean is 31.8 h. Only 8 of 20 (40%) were answered within 24 h, and 7 took 46 h or more. Of the 4 that took 70 h, eli reviewed 3.
+- **What should happen:** over the next 20 reviews, a median under 24 h, at least 75% answered within 24 h, and none over 48 h. It counts as a success if the median is under 24 h and at least 75% are answered within 24 h. If not, the rule is reverted and the experiment is recorded as failed.
+- **Commits:** the baseline (`48cf564`), the rule itself (`8876d1b`, saved in `commit.txt`), and the record of that hash (`14358a4`). They are on `master`, the only branch in the repo, and nothing was pushed.
+- **When to re-measure:** the newest entry in the log is from 2026-08-03, so the experiment stays open. Re-measure once R21–R40 are logged or on 2026-11-15, whichever comes first.
+
+The log has no data on reviewer workload or weekdays, so a change in who does the reviewing could move the numbers by itself. The experiment notes say to check the reviewer mix when re-measuring.
+
+Nothing blocked the change, so I didn't write a `QUESTIONS.md`.

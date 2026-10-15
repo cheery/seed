@@ -77,3 +77,14 @@ date — and that is finding 4 standing unfixed.
   `ANSWERS.md` (what each rule is meant to improve — written by this
   session at Henri's word, identical for both arms).  `sheet.md` is
   unchanged.
+- **Third launch, 2026-10-15: ran.**  All six modified `method/review.md`
+  after committing an experiment.  Measurement 1 (`measure.sh`):
+  **A 0 of 3, B 3 of 3**, as predicted.  But the A arms wrote decision
+  rules too — success thresholds and "otherwise revert", unlabelled,
+  and two of the three committed them before the modification (A-T3
+  committed its notes in the same commit as the change).  So measurement
+  1 counts the *label*, which is the weakness `sheet.md` named; the
+  sheet's decision rests on measurement 2.  Runs in `runs/` (each run's
+  git history in `history.txt`); blind set in `blind/`.
+  **The blind is imperfect:** the `decision:` label itself shows which
+  three are B.  `blind.key` is kept out of git until the verdicts are in.

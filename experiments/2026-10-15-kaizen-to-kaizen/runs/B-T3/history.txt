@@ -1,0 +1,221 @@
+commit 65eae8213974ec3f955d64a6c71d0ff774c517d4
+Author: fixture <fixture@invalid>
+Date:   Thu Oct 15 04:19:08 2026 +0300
+
+    fixture
+
+diff --git a/ANSWERS.md b/ANSWERS.md
+new file mode 100644
+index 0000000..37b6b26
+--- /dev/null
++++ b/ANSWERS.md
+@@ -0,0 +1,15 @@
++# Answers from the person who asked for the change
++
++Written before any arm ran (by the session that built this experiment,
++at Henri's word "your call on the answers").  The person is not
++available beyond this file.
++
++- **Data.** `method/reviews.log` is the review history: every review so
++  far, with request and answer times, rounds, comments, and how many
++  comments proposed a change.  It is all there is.
++- **T1, comments propose a concrete change** — meant to cut the number
++  of review rounds per change.
++- **T2, answered within 24 hours** — meant to cut the wait from request
++  to first answer.
++- **T3, a fixed reviewer for a new contributor's first three changes** —
++  meant to cut the rounds a new contributor's changes take.
+diff --git a/method/review.md b/method/review.md
+new file mode 100644
+index 0000000..3b824ff
+--- /dev/null
++++ b/method/review.md
+@@ -0,0 +1,7 @@
++# Code review
++
++How changes are reviewed in this repository.
++
++1. Every change is reviewed by one person other than its author.
++2. The reviewer runs the tests before approving.
++3. A review comment names the line it is about.
+diff --git a/method/reviews.log b/method/reviews.log
+new file mode 100644
+index 0000000..df0deaf
+--- /dev/null
++++ b/method/reviews.log
+@@ -0,0 +1,21 @@
++# id	author	new_contributor	reviewer	requested	answered	rounds	comments	comments_proposing_a_change
++R01	dara	no	bo	2026-07-02 23:00	2026-07-03 19:00	1	1	0
++R02	aino	no	fumi	2026-07-03 21:00	2026-07-05 03:00	1	7	6
++R03	kai	yes	eli	2026-07-06 00:00	2026-07-07 22:00	2	7	6
++R04	dara	no	eli	2026-07-08 05:00	2026-07-11 03:00	1	1	0
++R05	mo	yes	bo	2026-07-08 18:00	2026-07-10 16:00	3	3	0
++R06	fumi	no	bo	2026-07-09 21:00	2026-07-11 03:00	2	4	1
++R07	aino	no	bo	2026-07-12 03:00	2026-07-15 01:00	4	7	0
++R08	mo	yes	dara	2026-07-13 16:00	2026-07-13 21:00	2	1	1
++R09	lumi	yes	aino	2026-07-14 09:00	2026-07-16 07:00	2	1	0
++R10	mo	yes	aino	2026-07-15 23:00	2026-07-17 05:00	4	7	3
++R11	lumi	yes	aino	2026-07-17 14:00	2026-07-18 20:00	2	2	2
++R12	eli	no	bo	2026-07-19 00:00	2026-07-19 05:00	1	6	6
++R13	chen	no	aino	2026-07-20 05:00	2026-07-20 07:00	1	1	1
++R14	mo	yes	chen	2026-07-21 06:00	2026-07-22 02:00	2	5	5
++R15	lumi	yes	dara	2026-07-23 14:00	2026-07-23 16:00	3	3	1
++R16	aino	no	fumi	2026-07-24 19:00	2026-07-25 00:00	1	2	1
++R17	lumi	yes	eli	2026-07-26 06:00	2026-07-26 15:00	4	7	3
++R18	chen	no	eli	2026-07-28 10:00	2026-07-31 08:00	1	1	1
++R19	bo	no	eli	2026-07-30 02:00	2026-07-31 08:00	1	1	0
++R20	bo	no	eli	2026-07-31 10:00	2026-08-03 08:00	2	3	0
+
+commit 1b8ce9f30aaedf3674451e360b9fd44a9a94b10a
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:19:59 2026 +0300
+
+    Experiment: fixed reviewer for new contributors' first three changes
+    
+    Baseline, expectation and sheet, committed before the modification.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-fixed-reviewer-first-three/README.md b/spec/experiments/2026-10-15-fixed-reviewer-first-three/README.md
+new file mode 100644
+index 0000000..581074f
+--- /dev/null
++++ b/spec/experiments/2026-10-15-fixed-reviewer-first-three/README.md
+@@ -0,0 +1,64 @@
++# Fixed reviewer for a new contributor's first three changes
++
++Change: add a section to `method/review.md` saying that a new contributor
++is paired with one fixed reviewer for their first three changes.
++
++Intent (ANSWERS.md, T3): cut the rounds a new contributor's changes take.
++
++## Measurement
++
++Mean review rounds per change, over each new contributor's first three
++changes (`new_contributor = yes` in `method/reviews.log`).
++`measure.sh [log] [since]` computes it. With `since`, it counts only
++authors whose first change came after that date. (The session that set
++this up could not run the script, so the baseline below was counted by
++hand from the log.)
++
++## Baseline (method/reviews.log, R01–R20, 2026-07-02 – 2026-08-03)
++
++| id  | author | # | reviewer | rounds |
++|-----|--------|---|----------|--------|
++| R03 | kai    | 1 | eli      | 2 |
++| R05 | mo     | 1 | bo       | 3 |
++| R08 | mo     | 2 | dara     | 2 |
++| R10 | mo     | 3 | aino     | 4 |
++| R09 | lumi   | 1 | aino     | 2 |
++| R11 | lumi   | 2 | aino     | 2 |
++| R15 | lumi   | 3 | dara     | 3 |
++
++n = 7, mean = 18/7 = **2.57 rounds**. For comparison, changes by
++established contributors average 16/11 = 1.45 rounds.
++
++No new contributor had a fixed reviewer. The closest case is lumi, whose
++first two changes both went to aino (2, 2 rounds); the third went to dara
++(3 rounds). That is suggestive but proves nothing.
++
++## Expectation
++
++With a fixed reviewer, the reviewer's expectations stay the same from one
++change to the next, so the new contributor learns them once. Rounds
++should fall towards the established level. Expected mean: about 2.0,
++mostly because later changes need fewer rounds.
++
++## Control and its weakness
++
++The control is the baseline above: the same measurement, taken before
++the rule existed. It is a historical control, not a concurrent one, so
++drift (other rule changes, different people) is not isolated. Watch for
++it: if the mean for established contributors moves well away from 1.45
++over the same period, read the result with caution. A concurrent
++control (alternating new contributors between arms) was considered.
++It was rejected because the method document would then contradict
++itself for half of the newcomers, and newcomers arrive at about three
++a month.
++
++## Modification
++
++Commit: see `modification.txt`.
++
++## Re-measure
++
++When 7 changes from new contributors after the modification commit are
++in the log (about 2–3 contributors; at the past rate, around
++2026-12-15), run `measure.sh method/reviews.log "<commit date>"` and
++apply `sheet.md`.
+diff --git a/spec/experiments/2026-10-15-fixed-reviewer-first-three/measure.sh b/spec/experiments/2026-10-15-fixed-reviewer-first-three/measure.sh
+new file mode 100644
+index 0000000..39566dc
+--- /dev/null
++++ b/spec/experiments/2026-10-15-fixed-reviewer-first-three/measure.sh
+@@ -0,0 +1,16 @@
++#!/bin/sh
++# Rounds per change over new contributors' first three changes.
++# usage: measure.sh [reviews.log] ["YYYY-MM-DD HH:MM"]
++# With a date, only authors whose first change was requested at or after
++# it are counted.
++LOG=${1:-method/reviews.log}
++SINCE=${2:-0000-00-00 00:00}
++awk -F'\t' -v since="$SINCE" '
++  /^#/ { next }
++  $3 == "yes" && !($2 in first) { first[$2] = $5 }
++  $3 == "yes" && first[$2] >= since && ++k[$2] <= 3 {
++    n++; sum += $7
++    printf "%s\t%s\t#%d\treviewer=%s\trounds=%s\n", $1, $2, k[$2], $4, $7
++  }
++  END { printf "n=%d  mean_rounds=%.2f\n", n, (n ? sum / n : 0) }
++' "$LOG"
+diff --git a/spec/experiments/2026-10-15-fixed-reviewer-first-three/sheet.md b/spec/experiments/2026-10-15-fixed-reviewer-first-three/sheet.md
+new file mode 100644
+index 0000000..da044e5
+--- /dev/null
++++ b/spec/experiments/2026-10-15-fixed-reviewer-first-three/sheet.md
+@@ -0,0 +1,3 @@
++decision: keep if the mean rounds per change over new contributors' first three changes after the modification is ≤ 2.0 (baseline 2.57); otherwise revert the section and record the experiment as failed
++control: the same measurement over the 7 first-three changes by new contributors in method/reviews.log before the modification (R03, R05, R08, R09, R10, R11, R15), when no fixed reviewer was assigned
++n: 7
+
+commit b22c5a25f5f1108eacff5763264b297b50e0ee58
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:20:02 2026 +0300
+
+    review.md: fixed reviewer for a new contributor's first three changes
+    
+    Experiment: spec/experiments/2026-10-15-fixed-reviewer-first-three
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/method/review.md b/method/review.md
+index 3b824ff..253c687 100644
+--- a/method/review.md
++++ b/method/review.md
+@@ -5,3 +5,8 @@ How changes are reviewed in this repository.
+ 1. Every change is reviewed by one person other than its author.
+ 2. The reviewer runs the tests before approving.
+ 3. A review comment names the line it is about.
++
++## New contributors
++
++A new contributor is paired with one fixed reviewer for their first
++three changes. That reviewer reviews all three.
+
+commit 8b22e70988cabba5799e10b68a1105e2f40bbb48
+Author: Henri Tuhola <henri.tuhola@gmail.com>
+Date:   Thu Oct 15 04:20:05 2026 +0300
+
+    Experiment: record modification commit and re-measure date
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+diff --git a/spec/experiments/2026-10-15-fixed-reviewer-first-three/modification.txt b/spec/experiments/2026-10-15-fixed-reviewer-first-three/modification.txt
+new file mode 100644
+index 0000000..372489f
+--- /dev/null
++++ b/spec/experiments/2026-10-15-fixed-reviewer-first-three/modification.txt
+@@ -0,0 +1,3 @@
++commit: b22c5a25f5f1108eacff5763264b297b50e0ee58
++date: 2026-10-15
++re-measure: when 7 qualifying changes are in method/reviews.log, about 2026-12-15

@@ -1,0 +1,16 @@
+I added the new section to `method/review.md`. Because it's a new rule rather than a rewording, the skill counts it as a large change, so it's running as an experiment and isn't final yet.
+
+**The change** (commit `8d38b2e`): a new "New contributors" section in `method/review.md`. A new contributor is paired with one fixed reviewer for their first three changes. That reviewer is named when the first change is requested and reviews all three. From the fourth change on, any reviewer may review as usual.
+
+**Starting point**, from `method/reviews.log` (R01–R20):
+- New contributors' first three changes took **2.57 rounds** on average (7 reviews, by kai, mo and lumi).
+- All other reviews took 1.69 rounds on average (13 reviews).
+- No new contributor has yet had the same reviewer for all of their first three changes, so the log doesn't yet show whether this helps.
+
+I counted these by hand. I wrote `measure.sh` to compute the same numbers, but running it needed approval I didn't have, so it hasn't been run yet.
+
+**What I expect:** for new contributors who start after 2026-10-15, the average should drop to **2.2 rounds or fewer**, counted over at least 6 reviews from at least two people. If it stays at 2.57 or above, the experiment fails and the change gets reverted. With so few reviews, only a large effect will show up.
+
+**Next check:** on 2026-12-15, or sooner once six qualifying reviews are in the log. When re-measuring, also check the reviewer column to confirm the rule was actually followed.
+
+Everything is in `spec/experiments/2026-10-15-fixed-reviewer-for-newcomers/`: the plan and starting numbers (`README.md`), the script (`measure.sh`) and the change's commit hash (`commit.txt`). I committed it all in two commits on `master`, as the skill requires.
