@@ -5,33 +5,36 @@ description: improvement kata or kaizen to edit skills and method documents
 
 # kaizen
 
-The first session (you) reading this file should locate it from it's place,
-and edit this skill. Currently this skill-file is a draft from the author.
-Mark it suspected and amenable to changes.
+**Status: suspected.** A first draft by the author, 2026-10-15, first
+reviewed by a session the same day.  Any part of it may be wrong, and it
+is subject to its own rules below: a small fix goes straight in, a large
+one goes through an experiment.
 
-Skill document is an any agent-skill that is available as editable to the session.
-Method refers to documents within the repository, eg. (board/README.md, manifesto.md, vision.md, ..)
+A *skill document* is any agent skill that is available as editable to the session.
+*Method* refers to documents within the repository, eg. (board/README.md, manifesto.md, vision.md, ..)
 
-Whenever we edit any of the skills or method documents.
-We should first classify whether the change is small or big.
+Whenever we edit a skill or a method document, we first classify the
+change as small or large.
 
- - It if is a small change, eg. writing correction or clarifying rephrase.
-   Just do it into the files as it stands.
- - If if is a large change, eg. add new information,
-   an experiment should be done to verify that the change moves a needle.
+ - If it is a small change, e.g. a writing correction or a clarifying
+   rephrase, make it in the files as they stand.
+ - If it is a large change, e.g. adding new information, run an
+   experiment to verify that the change moves the needle.
 
 ## Experiment
 
-Store the experiment to `spec/experiments` if it's repository method files or `.claude/skills` experiment.
-Otherwise into `experiments` -directory within the seed -plugin in `~/.claude/skills/seed/experiments`
-Each experiment comes its own directory with `<date>-<short-name>/`
+Store the experiment in the repository's `spec/experiments/` when the
+change is to the repository's method documents or to its `.claude/skills/`.
+Otherwise (a change to a skill in the seed plugin) store it in
+`~/.claude/skills/seed/experiments/`.  Each experiment gets its own
+directory, `<date>-<short-name>/`.
 
-Into the experiment:
+In the experiment:
 
  - Build or select the measurements that are relevant for the change
  - Measure those measurements against the current state
  - Record how you expect things to change after the modification
- - Write the modification, commit
+ - Write the modification and commit it
  - Record the modification's commit hash into the experiment directory
  - Re-measure (or mark the date to re-measure)
 
