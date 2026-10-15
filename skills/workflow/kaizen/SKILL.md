@@ -26,7 +26,8 @@ will follow the change, and how hard its effect is to see.
    and put a mark at the top of the changed part:
    `*On trial: <what to check>.  Re-check <a date, or the next N uses>.*`
    Whoever meets the re-check decides: keep (delete the mark) or revert.
-   `grep -rn "On trial:"` lists everything still open.
+   `grep -rn '^ *\*On trial:'` lists everything still open, and not
+   the two lines here that describe the mark.
  - **Full trial**: only when the change will be followed widely *and*
    its effect is hard to see in ordinary use, so an on-trial mark would
    not catch a fault.  Run the experiment below before it becomes

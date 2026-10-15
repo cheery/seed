@@ -5,7 +5,7 @@ changes found in its first review (2026-10-15), bundled into one
 experiment and **tried one stage at a time**, so a result can be
 attributed to one change and not to the bundle.
 
-Status: **closed 2026-10-15.**  Stage 1 failed and reverted; every other finding shipped *on trial* in the skill, each with its own re-check — `grep -n "On trial:" skills/workflow/kaizen/SKILL.md`.
+Status: **closed 2026-10-15.**  Stage 1 failed and reverted; every other finding shipped *on trial* in the skill, each with its own re-check — `grep -rn '^ *\*On trial:' skills/`.
 
 ## The stages
 
