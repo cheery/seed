@@ -48,3 +48,13 @@ date — and that is finding 4 standing unfixed.
 ## Verdicts
 
 *(none yet)*
+
+## Attempts
+
+- **2026-10-15, first launch: no result.**  All six arms died on
+  `Invalid API key` — `ANTHROPIC_API_KEY` exported in `~/.bashrc` was
+  inherited and is not valid.  `run.sh` lost the exit code under
+  `set -e`, and `measure.sh` read the dead runs as `modified=no`.  All
+  three fixed before the second launch; the dead runs are kept in
+  `attempts/2026-10-15-invalid-key/` (their fixture repos' `.git`
+  removed).

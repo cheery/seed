@@ -5,6 +5,10 @@
 # commit that changes method/, carries decision:, control: and n: — none blank, n a number.
 set -u
 r=$1; cd "$r" || exit 2
+# a run that did not finish is not a result: 2026-10-15 the first six died on an invalid key
+# and this judge read them as "modified=no"
+ex=$(cat exit.txt 2>/dev/null || echo missing)
+[ "$ex" = 0 ] || { echo "$(basename "$r")  RUN FAILED (exit=$ex) — not a result"; exit 0; }
 mod=$(git log --reverse --format=%H -- method | sed -n 2p)
 asked=no; [ -s QUESTIONS.md ] && asked=yes
 if [ -z "$mod" ]; then echo "$(basename "$r")  modified=no  sheet_before=n/a  asked=$asked"; exit 0; fi

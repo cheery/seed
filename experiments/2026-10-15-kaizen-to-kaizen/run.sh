@@ -18,6 +18,8 @@ git -C "$seed" show "$rev:skills/workflow/kaizen/SKILL.md" > "$out/.skill.md"
 ( cd "$out" && git init -q && git add method && git -c user.name=fixture -c user.email=fixture@invalid commit -qm "fixture" )
 prompt="The skill in your system prompt governs every edit to this repository's method documents (method/). Make this change, following the skill: $text
 If anything stops you, write your question into QUESTIONS.md in the repository root and stop; a question is a legitimate result."
-cd "$out" && claude -p "$prompt" --model claude-opus-5-5 --append-system-prompt-file .skill.md \
+# ANTHROPIC_API_KEY is dropped so the arm bills the claude.ai login, not a key (2026-10-15: an
+# invalid key in ~/.bashrc killed all six first runs).  set +e so the exit code is written.
+set +e; cd "$out" && env -u ANTHROPIC_API_KEY claude -p "$prompt" --model claude-opus-5-5 --append-system-prompt-file .skill.md \
   --disallowed-tools Skill --permission-mode acceptEdits --allowed-tools "Bash(git:*)" Read Write Edit \
   > transcript.txt 2>&1; echo $? > exit.txt
