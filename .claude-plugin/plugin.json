@@ -1,0 +1,14 @@
+{
+  "name": "seed",
+  "description": "Skill set for running lean & kaizen within your project.",
+  "author": {
+    "name": "Henri Tuhola"
+  },
+  "homepage": "https://github.com/cheery/seed",
+  "repository": "https://github.com/cheery/seed",
+  "license": "MIT",
+  "skills": [
+    "./skills/workflow",
+    "./skills/expertise"
+  ]
+}
