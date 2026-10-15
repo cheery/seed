@@ -1,0 +1,3 @@
+T1	Add a rule to method/review.md: every review comment must propose a concrete change, not only point at a problem.
+T2	Add a rule to method/review.md: a review is answered within 24 hours of being requested.
+T3	Add a section to method/review.md: a new contributor is paired with one fixed reviewer for their first three changes.
